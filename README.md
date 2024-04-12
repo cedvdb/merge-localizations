@@ -1,7 +1,9 @@
 
+# merge_localizations
 
+Merges multiple nested `.arb` files into one.
 
-# Example
+# Usage
 
 Given the following file structure
 ```
@@ -16,12 +18,14 @@ Given the following file structure
 merge-localizations.yaml
 ```
 
-and the following `merge-localizations.yaml`
-```
+and the following `merge-localizations.yaml` (all properties are optional)
+```yaml
 inputs-directories:
   - /screens
 output-directory: /language
 output-filename: language_en.arb
+should-add-context: true
+should-run-flutter-gen: false
 ```
 
 

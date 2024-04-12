@@ -4,10 +4,10 @@ import 'dart:io';
 import 'package:path/path.dart' as path;
 
 void mergeLocalizations({
-  List<String> inputDirectories = const ['/lib'],
-  String outputDirectory = '/localizations',
-  String outputFilename = 'language_en.arb',
-  bool shouldAddContext = true,
+  required List<String> inputDirectories,
+  required String outputDirectory,
+  required String outputFilename,
+  required bool shouldAddContext,
 }) {
   final String outputFilePath = path.join(outputDirectory, outputFilename);
 
@@ -19,9 +19,11 @@ void mergeLocalizations({
   );
   final allContent = _concatenateAllArbFiles(files, shouldAddContext);
 
+  if (outputFile.existsSync()) {
+    outputFile.deleteSync();
+  }
+  outputFile.createSync(recursive: true);
   outputFile.writeAsStringSync(allContent, mode: FileMode.write);
-
-  _runFlutterGenL10n(outputDirectory);
 }
 
 String _concatenateAllArbFiles(List<File> files, bool shoudAddContext) {
@@ -34,7 +36,7 @@ String _concatenateAllArbFiles(List<File> files, bool shoudAddContext) {
     final values = shoudAddContext ? addContext(json, file.path) : json;
     content = {
       ...content,
-      '@@@__${path.basenameWithoutExtension(file.path)}__': '',
+      '@@@__${path.basename(file.path)}__@@@': '',
       ...values,
     };
   }
@@ -43,18 +45,22 @@ String _concatenateAllArbFiles(List<File> files, bool shoudAddContext) {
 }
 
 Map<String, dynamic> addContext(Map<String, dynamic> json, String filePath) {
-  final Map<String, dynamic> values = {...json};
+  final Map<String, dynamic> values = {};
 
   json.forEach((key, value) {
+    values[key] = value;
     final context = 'context: ${path.basenameWithoutExtension(filePath)}';
+    final isMetadata = key.startsWith('@');
+    final metadataKey = '@$key';
+    final hasMetadata = json.containsKey(metadataKey);
+    if (isMetadata) {
+      return;
+    }
     // add context to localizations
-    if (!json.containsKey('@$key')) {
-      values['@$key'] = {
-        'description': context,
-      };
-    } else if (json.containsKey('@$key') &&
-        json['@$key']['description'] == null) {
-      values['@$key']['description'] = context;
+    if (!hasMetadata) {
+      values[metadataKey] = {'description': context};
+    } else if (hasMetadata && json[metadataKey]['description'] == null) {
+      values[metadataKey]['description'] = context;
     }
   });
   return values;
@@ -67,7 +73,7 @@ List<File> _findArbFiles({
   final fileSystemEntities = <FileSystemEntity>[];
   for (final dir in searchedDirectories) {
     final files = Directory(dir).listSync(recursive: true);
-    files.addAll(files);
+    fileSystemEntities.addAll(files);
   }
   return fileSystemEntities
       .where((entity) => entity.path.endsWith('.arb'))
@@ -75,17 +81,4 @@ List<File> _findArbFiles({
       // this omition is naive but will do for now
       .where((file) => !file.path.contains(omittedDirectory))
       .toList();
-}
-
-void _runFlutterGenL10n(String dir) {
-  final result = Process.runSync(
-    'flutter',
-    ['gen-l10n'],
-    workingDirectory: dir,
-    runInShell: true,
-  );
-  if (result.stderr != null) {
-    // ignore: avoid_print
-    print(result.stderr);
-  }
 }
