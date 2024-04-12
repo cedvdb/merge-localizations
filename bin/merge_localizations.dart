@@ -15,14 +15,14 @@ void main() {
   }
   final String configContent = configFile.readAsStringSync();
   final yaml.YamlMap config = yaml.loadYaml(configContent);
-  final List<String> inputDirectories =
+  final yaml.YamlList inputDirectories =
       config['input-directories'] ?? ['./lib'];
   final String outputDirectory =
       config['output-directory'] ?? './localizations';
   final String outputFilename = config['output-filename'] ?? 'language_en.arb';
   final bool shouldAddContext = config['should-add-context'] ?? true;
   mergeLocalizations(
-    inputDirectories: inputDirectories,
+    inputDirectories: inputDirectories.cast<String>().toList(),
     outputDirectory: outputDirectory,
     outputFilename: outputFilename,
     shouldAddContext: shouldAddContext,
