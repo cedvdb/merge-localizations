@@ -59,8 +59,6 @@ Map<String, dynamic> addContext(Map<String, dynamic> json, String filePath) {
     // add context to localizations
     if (!hasMetadata) {
       values[metadataKey] = {'description': context};
-    } else if (hasMetadata && json[metadataKey]['description'] == null) {
-      values[metadataKey]['description'] = context;
     }
   });
   return values;

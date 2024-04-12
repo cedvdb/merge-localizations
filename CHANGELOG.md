@@ -1,3 +1,8 @@
+## 1.0.2
+
+- Fix metadata merging
+
+
 ## 1.0.1
 
 - Fix incorrect casting
