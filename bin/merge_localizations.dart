@@ -1,0 +1,21 @@
+import 'dart:io';
+
+import 'package:merge_localizations/merge_localizations.dart';
+import 'package:yaml/yaml.dart' as yaml;
+
+void main() {
+  final String configContent =
+      File('merge-localizations.yaml').readAsStringSync();
+  final Map<String, dynamic> config = yaml.loadYaml(configContent);
+  final List<String> inputDirectories = config['input-directories'] ?? ['lib'];
+  final String outputDirectory = config['output-directory'] ?? 'localizations';
+  final String outputFilename = config['output-filename'] ?? 'language_en.arb';
+  final bool shouldAddContext = config['should-add-context'] ?? true;
+
+  mergeLocalizations(
+    inputDirectories: inputDirectories,
+    outputDirectory: outputDirectory,
+    outputFilename: outputFilename,
+    shouldAddContext: shouldAddContext,
+  );
+}
