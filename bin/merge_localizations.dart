@@ -4,7 +4,7 @@ import 'package:merge_localizations/merge_localizations.dart';
 import 'package:yaml/yaml.dart' as yaml;
 
 void main() {
-  final configFile = File('merge-localizations.yaml');
+  final configFile = File('merge_localizations.yaml');
   if (!configFile.existsSync()) {
     return mergeLocalizations(
       inputDirectories: const ['./lib'],
@@ -13,8 +13,7 @@ void main() {
       shouldAddContext: true,
     );
   }
-  final String configContent =
-      File('merge-localizations.yaml').readAsStringSync();
+  final String configContent = configFile.readAsStringSync();
   final yaml.YamlMap config = yaml.loadYaml(configContent);
   final List<String> inputDirectories =
       config['input-directories'] ?? ['./lib'];

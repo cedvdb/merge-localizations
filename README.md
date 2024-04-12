@@ -1,4 +1,5 @@
 
+
 # merge_localizations
 
 Merges multiple nested `.arb` files into one.
@@ -15,10 +16,10 @@ Given the following file structure
     screen2.dart
     screen2.arb
 /language
-merge-localizations.yaml
+merge_localizations.yaml
 ```
 
-and the following `merge-localizations.yaml` (all properties are optional)
+and the following `merge_localizations.yaml` (all properties are optional)
 ```yaml
 inputs-directories:
   - /screens
@@ -29,4 +30,6 @@ should-run-flutter-gen: false
 ```
 
 
-running `merge-localizations` will combine `screen1.arb` and `screen2.arb` into a single  `/language/language_en.arb` file.
+
+running `dart run merge_localizations` will combine `screen1.arb` and `screen2.arb` into a single  `/language/language_en.arb` file.
+
