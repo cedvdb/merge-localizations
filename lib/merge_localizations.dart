@@ -77,6 +77,8 @@ List<File> _findArbFiles({
       .where((entity) => entity.path.endsWith('.arb'))
       .map((entity) => File(entity.path))
       // this omition is naive but will do for now
-      .where((file) => !file.path.contains(Directory(omittedDirectory).path))
+      .where((file) => !path
+          .canonicalize(file.path)
+          .contains(path.canonicalize(omittedDirectory)))
       .toList();
 }

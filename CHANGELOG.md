@@ -1,3 +1,8 @@
+## 1.0.4
+ 
+  - fix omittion 2
+
+
 ## 1.0.3
  
   - fix omittion
