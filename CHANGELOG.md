@@ -1,3 +1,7 @@
+## 1.1.4
+
+- More checks for omittion
+
 ## 1.1.3
 
 - More logs

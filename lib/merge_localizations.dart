@@ -91,8 +91,6 @@ List<File> _findArbFiles({
       // this omition is naive but will do for now
       .where((file) {
     final filePath = path.canonicalize(file.path);
-    print(filePath);
-    print(path.canonicalize(omittedDirectory));
     return !filePath.contains(path.canonicalize(omittedDirectory));
   }).toList();
 }
