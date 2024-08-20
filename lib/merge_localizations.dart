@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:path/path.dart' as path;
+import 'package:path/path.dart';
 
 void mergeLocalizations({
   required List<String> inputDirectories,
@@ -17,6 +18,15 @@ void mergeLocalizations({
     searchedDirectories: inputDirectories,
     omittedDirectory: outputDirectory,
   );
+
+  if (files.isEmpty) {
+    print('No files found in [${inputDirectories.join(', ')}]');
+  }
+
+  for (final file in files) {
+    print('merging ${basename(file.path)}');
+  }
+
   final allContent = _concatenateAllArbFiles(files, shouldAddContext);
 
   if (outputFile.existsSync()) {

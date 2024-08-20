@@ -1,3 +1,11 @@
+## 1.1.2
+
+- Add logs
+
+## 1.1.1
+
+- Fix incorrect cast
+
 ## 1.1.0
 
 - Fix incorrect cast

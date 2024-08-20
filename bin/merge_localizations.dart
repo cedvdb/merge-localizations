@@ -15,8 +15,8 @@ void main() {
   }
   final String configContent = configFile.readAsStringSync();
   final yaml.YamlMap config = yaml.loadYaml(configContent);
-  final List<String> inputDirectories =
-      config['input-directories'] ?? ['./lib'];
+  final yaml.YamlList inputDirectories =
+      config['input-directories'] ?? yaml.YamlList.wrap(['./lib']);
   final String outputDirectory =
       config['output-directory'] ?? './localizations';
   final String outputFilename = config['output-filename'] ?? 'language_en.arb';
