@@ -24,7 +24,7 @@ void mergeLocalizations({
   }
 
   for (final file in files) {
-    print('merging ${basename(file.path)}');
+    print('merging ${file.path}');
   }
 
   final allContent = _concatenateAllArbFiles(files, shouldAddContext);
@@ -78,6 +78,8 @@ List<File> _findArbFiles({
   required List<String> searchedDirectories,
   required String omittedDirectory,
 }) {
+  print(
+      'Searching arb files in [${searchedDirectories.join(', ')}] omitting ${path.canonicalize(omittedDirectory)}');
   final fileSystemEntities = <FileSystemEntity>[];
   for (final dir in searchedDirectories) {
     final files = Directory(dir).listSync(recursive: true);
@@ -88,7 +90,7 @@ List<File> _findArbFiles({
       .map((entity) => File(entity.path))
       // this omition is naive but will do for now
       .where((file) => !path
-          .canonicalize(file.path)
+          .canonicalize(file.absolute.path)
           .contains(path.canonicalize(omittedDirectory)))
       .toList();
 }

@@ -1,3 +1,7 @@
+## 1.1.3
+
+- More logs
+
 ## 1.1.2
 
 - Add logs
