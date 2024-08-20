@@ -26,7 +26,6 @@ inputs-directories:
 output-directory: /language
 output-filename: language_en.arb
 should-add-context: true
-should-run-flutter-gen: false
 ```
 
 

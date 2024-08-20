@@ -1,6 +1,6 @@
 name: merge_localizations
 description: Allows merging multiple nested .arb files into one root .arb file
-version: 1.0.4
+version: 1.5.0
 repository: https://github.com/cedvdb/merge-localizations
 
 environment:

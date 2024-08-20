@@ -1,11 +1,15 @@
+## 1.5.0
+
+- Fix incorrect cast
+
 ## 1.0.4
  
-  - fix omittion 2
+- Fix omittion 2
 
 
 ## 1.0.3
  
-  - fix omittion
+- Fix omittion
 
 ## 1.0.2
 
