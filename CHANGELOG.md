@@ -1,3 +1,7 @@
+## 1.1.5
+
+- Log file
+
 ## 1.1.4
 
 - More checks for omittion
